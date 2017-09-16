@@ -3,6 +3,29 @@ import sublime_plugin
 import subprocess
 
 
+def ledger(args, input=None):
+    extra_args = []
+    if input is not None:
+        extra_args.extend(["-f", "-"])
+
+    p = subprocess.Popen(["ledger"] + extra_args + args,
+                         stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE,
+                         universal_newlines=True)
+    stdout, stderr = p.communicate(input)
+
+    return stdout
+
+
+def set_ledger_output(edit, window, text):
+    panel = window.create_output_panel("ledger")
+    panel.set_read_only(False)
+    panel.insert(edit, 0, text)
+    panel.set_read_only(True)
+    window.run_command("show_panel", {"panel": "output.ledger"})
+
+
 class PromptBalanceCommand(sublime_plugin.WindowCommand):
     def run(self):
         self.window.show_input_panel(
@@ -19,12 +42,5 @@ class PromptBalanceCommand(sublime_plugin.WindowCommand):
 
 class BalanceCommand(sublime_plugin.TextCommand):
     def run(self, edit, account):
-        result = subprocess.check_output(
-            ["ledger", "bal", account], universal_newlines=True)
-
-        panel = self.view.window().create_output_panel("ledger")
-        panel.set_read_only(False)
-        panel.insert(edit, 0, result)
-        panel.set_read_only(True)
-        self.view.window().run_command(
-            "show_panel", {"panel": "output.ledger"})
+        result = ledger(["bal", account])
+        set_ledger_output(edit, self.view.window(), result)
