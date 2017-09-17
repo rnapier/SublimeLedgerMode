@@ -1,0 +1,7 @@
+[
+    {
+        "command": "ledger_balance", 
+        "keys": ["ctrl+alt+b"],
+        "context": [{"key": "selector", "operator": "equal", "operand": "source.ledger"}]
+    }
+]

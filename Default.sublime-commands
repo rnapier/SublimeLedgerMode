@@ -1,0 +1,6 @@
+[
+    {
+    	"caption": "Ledger: Show Balance",
+        "command": "ledger_balance",
+    }
+]
