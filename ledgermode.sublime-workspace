@@ -1,0 +1,442 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"leading",
+				"leading_space"
+			],
+			[
+				"commo",
+				"commodity_re\tstatement"
+			],
+			[
+				"amount",
+				"amount_delim\tstatement"
+			],
+			[
+				"class",
+				"class\tNew Class"
+			],
+			[
+				"sub",
+				"sublime_plugin\tmodule"
+			],
+			[
+				"check",
+				"check_output\tfunction"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "ledgermode.py",
+			"settings":
+			{
+				"buffer_size": 5700,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 119.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"anaconda sett",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"anaconda run",
+				"Anaconda: Run Current File Tests"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"refor",
+				"Ledger: Reformat Entry"
+			],
+			[
+				"git comm",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"json",
+				"Pretty JSON: JSON 2 XML"
+			],
+			[
+				"ledger",
+				"Ledger: Show Balance"
+			],
+			[
+				"le",
+				"Ledger: Show Balance"
+			],
+			[
+				"led",
+				"Ledger: Print Balance"
+			],
+			[
+				"bala",
+				"Ledger: Print Balance"
+			],
+			[
+				"for",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"pretty",
+				"Preferences: Pretty JSON Settings - User"
+			],
+			[
+				"discover",
+				"Package Control: Discover Packages"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"git: commit",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git",
+				"Git: Commit"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"package con",
+				"Package Control: Remove Package"
+			],
+			[
+				"packageinsta",
+				"Package Control: Install Package"
+			],
+			[
+				"packag",
+				"Package Control: Discover Packages"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 130.0,
+		"history":
+		[
+			"commodity_re = r'(.*)(?: (.*))?'",
+			"amount_re = r'(.*?)(?:{2,}(.*))?'",
+			"amount_re = r'(.*?)() {2,}(.*))?'",
+			"re.match(amount_re, 's xcsda sdj asf $200').groups()",
+			"re.match(amount_re, 's xcsda sdj asf  $200   ').groups()",
+			"re.match(amount_re, 's xcsda sdj asf  $200   '",
+			"amount_re = r'(.*?) {2,}(.*)?'",
+			"re.match(comment_re, 'test ; bob ; more   ').groups()",
+			"comment_re = r'^\\s*(.*?)\\s*(?:;\\s*(.*?)\\s*)?$'",
+			"re.match(comment_re, 'test ; bob ; more   ').groups()",
+			"comment_re = r'^\\s*(.*?)\\s*(?:;\\s*(.*)\\s*)?$'",
+			"re.match(comment_re, 'test ; bob ; more').groups()",
+			"re.match(comment_re, 'test ; bob').groups()",
+			"m.groups()",
+			"m = re.match(comment_re, 'test')",
+			"comment_re = r'^\\s*(.*?)\\s*(?:;\\s*(.*))?$'",
+			"comment_re = ^r'\\s*(.*?)\\s*(?:;\\s*(.*))?$'",
+			"m.groups()",
+			"m.groups(1)",
+			"comment_re",
+			"m.groups()",
+			"m = re.match(comment_re, 'test')",
+			"m.groups()",
+			"m = re.match(comment_re, ' ; ')",
+			"m.groups()",
+			"m = re.match(comment_re, ';')",
+			"comment_re = r'(.*?)\\s*(?:;\\s*(.*))?'",
+			"m.groups()",
+			"m.groups",
+			"m = re.match(comment_re, ';')",
+			"comment_re = r'(.*)\\s*(?:;\\s*(.*))?'",
+			"m.groups()",
+			"m = re.match(comment_re, ';')",
+			"m",
+			"m.groups()",
+			"m = re.match(comment_re, '')",
+			"comment_re = r'(.*)\\s*;\\s*(.*)'",
+			"m.groups()",
+			"m",
+			"m = re.match(comment_re, '; test')",
+			"comment_re = r'(.*);(.*)'",
+			"comment_re = re.compile(r'(.*);(.*)')",
+			"comment_re = r'(.*);(.*)'.compile",
+			"comment_re = r'(.*);(.*)'.compile()",
+			"comment_re",
+			"comment_re.match('; test')",
+			"comment_re = r'(.*);(.*)'",
+			"import re",
+			"view.run_command(\"ledger_reformat_entry\")",
+			"print(\"s\")",
+			"view.run_command(\"ledger_reformat_entry\")",
+			"view.run_command(\"ledger_reformat\")",
+			"view.run_command(\"ledger_balance\")",
+			"window.run_command(\"ledger_prompt_balance\")",
+			"window.run_command(\"prompt_balance\")",
+			"view.run_command(\"prompt_balance\")",
+			"view.run_command(\"balance\")",
+			"window",
+			"view.run_command(\"balance\")",
+			"view.run_command(\"example\")"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/rnapier/Library/Application Support/Sublime Text 3/Packages/Ledger Mode"
+	],
+	"file_history":
+	[
+		"/Users/rnapier/tmp/test.py",
+		"/Users/rnapier/Library/Application Support/Sublime Text 3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/Users/rnapier/adblock.filters",
+		"/Users/rnapier/src/swift-source/swift/stdlib/public/core/LazyCollection.swift.gyb",
+		"/Users/rnapier/Library/Application Support/Sublime Text 3/Packages/Ledger Mode/Default.sublime-commands",
+		"/Users/rnapier/x/Default/Default.sublime-commands",
+		"/Users/rnapier/Library/Application Support/Sublime Text 3/Packages/User/Pretty JSON.sublime-settings",
+		"/Users/rnapier/Library/Application Support/Sublime Text 3/Packages/Pretty JSON/Pretty JSON.sublime-settings",
+		"/Users/rnapier/Library/Application Support/Sublime Text 3/Packages/Ledger Mode/Ledger Mode.sublime-menu",
+		"/Users/rnapier/src/swift-source/swift/stdlib/public/core/Policy.swift",
+		"/Users/rnapier/x/Default/exec.py",
+		"/Users/rnapier/Ledger/amex.ledger",
+		"/Users/rnapier/go/src/myapp/srv/server.go",
+		"/Users/rnapier/clients/RonGruner/myPhenom/myPhenom/.clang-format",
+		"/Users/rnapier/go/src/myapp/srv/settings.go",
+		"/Users/rnapier/go/src/myapp/server.go",
+		"/Users/rnapier/go/src/myapp/main.go"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\\n",
+			"len"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "ledgermode.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5700,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3257,
+								3257
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1995.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 229.0
+	},
+	"output.find_results":
+	{
+		"height": 102.0
+	},
+	"output.git":
+	{
+		"height": 102.0
+	},
+	"output.ledger":
+	{
+		"height": 134.0
+	},
+	"pinned_build_system": "",
+	"project": "ledgermode.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"heapbuff",
+				"HeapBuffer.swift"
+			],
+			[
+				"strinbu",
+				"StringBuffer.swift"
+			],
+			[
+				"string",
+				"String.swift"
+			],
+			[
+				"pol",
+				"Policy.swift"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 259.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

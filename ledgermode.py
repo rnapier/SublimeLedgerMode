@@ -112,15 +112,47 @@ def all_entries_intersecting_selection(view, sr):
     return entries
 
 
-class LedgerEntry(object):
-    """docstring for LedgerEntry"""
+posting_re = r'\s+'  # Starts with whitespace
+comment_re = r'^(.*?)(;.*)?$'
+amount_re = r'^(.*?)(?: {2,}(.*))?$'
+commodity_re = r'^(.*?)( .*)?$'
 
-    def __init__(self, text):
-        super(LedgerEntry, self).__init__()
-        self.text = text
+account_column = 4
+amount_column = 52
 
-    def formatted(self):
-        return self.text
+
+def format_posting(text):
+    # remove extra leading and trailing spaces
+    text = text.strip()
+
+    # Remove any trailing comment (in case it has double spaces).
+    # Also removes extra spaces.
+    (non_comment, comment) = re.match(comment_re, text).groups('')
+
+    (account, amount) = re.match(amount_re, non_comment).groups('')
+
+    (amount_value, commodity) = re.match(commodity_re, amount).groups('')
+
+    leading_space = " " * account_column
+
+    if not amount:
+        amount_space = ""
+    else:
+        amount_space = " " * \
+            max(amount_column - len(amount_value) -
+                len(account) - len(leading_space), 2)
+
+    return leading_space + account + amount_space + amount + comment
+
+
+def format_entry(text):
+    formatted = []
+    for line in text.splitlines():
+        if re.match(posting_re, line):
+            formatted.append(format_posting(line))
+        else:
+            formatted.append(line)
+    return "\n".join(formatted)
 
 
 class LedgerBalanceCommand(sublime_plugin.TextCommand):
@@ -135,10 +167,10 @@ class LedgerBalanceCommand(sublime_plugin.TextCommand):
             accounts_output = ledger(['accounts', '^Assets:', '^Liabilities:'],
                                      input=text)
 
-            if len(accounts_output) == 0:
+            if not accounts_output:
                 accounts_output = ledger(['accounts'])
 
-            self.accounts = accounts_output.split("\n")
+            self.accounts = accounts_output.splitlines()
 
             self.view.window().show_quick_panel(self.accounts,
                                                 self.input_account)
@@ -168,10 +200,8 @@ class LedgerReformatEntry(sublime_plugin.TextCommand):
                     if e not in entries:
                         entries.append(e)
 
-            if len(entries) > 0:
-                self.view.sel().clear()
-                for e in entries:
-                    self.view.sel().add(e)
+            for e in reversed(entries):
+                self.view.replace(edit, e, format_entry(self.view.substr(e)))
 
         else:
             self.view.window().status_message("Not a ledger file")
