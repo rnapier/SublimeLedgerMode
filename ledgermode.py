@@ -1,6 +1,5 @@
 import sublime
 import sublime_plugin
-import re
 from . import ledger
 
 
@@ -36,11 +35,8 @@ def next_line(view, sr):
         return view.full_line(sr.end())
 
 
-separating_line_pattern = re.compile("^[\\t ]*\\n?$")
-
-
 def is_entry_separating_line(view, sr):
-    return separating_line_pattern.match(view.substr(sr)) is not None
+    return ledger.is_entry_separator(view.substr(sr))
 
 
 def expand_to_entry(view, tp):
@@ -90,49 +86,6 @@ def all_entries_intersecting_selection(view, sr):
     return entries
 
 
-posting_re = r'\s+'  # Starts with whitespace
-comment_re = r'^(.*?)(;.*)?$'
-amount_re = r'^(.*?)(?: {2,}(.*))?$'
-commodity_re = r'^(.*?)( .*)?$'
-
-account_column = 4
-amount_column = 52
-
-
-def format_posting(text):
-    # remove extra leading and trailing spaces
-    text = text.strip()
-
-    # Remove any trailing comment (in case it has double spaces).
-    # Also removes extra spaces.
-    (non_comment, comment) = re.match(comment_re, text).groups('')
-
-    (account, amount) = re.match(amount_re, non_comment).groups('')
-
-    (amount_value, commodity) = re.match(commodity_re, amount).groups('')
-
-    leading_space = " " * account_column
-
-    if not amount:
-        amount_space = ""
-    else:
-        amount_space = " " * \
-            max(amount_column - len(amount_value) -
-                len(account) - len(leading_space), 2)
-
-    return leading_space + account + amount_space + amount + comment
-
-
-def format_entry(text):
-    formatted = []
-    for line in text.splitlines():
-        if re.match(posting_re, line):
-            formatted.append(format_posting(line))
-        else:
-            formatted.append(line)
-    return "\n".join(formatted) + "\n"
-
-
 class LedgerBalanceCommand(sublime_plugin.TextCommand):
     def __init__(self, *args):
         super().__init__(*args)
@@ -172,7 +125,8 @@ class LedgerReformatEntry(sublime_plugin.TextCommand):
                         entries.append(e)
 
             for e in reversed(entries):
-                self.view.replace(edit, e, format_entry(self.view.substr(e)))
+                self.view.replace(edit, e,
+                                  ledger.format_entry(self.view.substr(e)))
 
         else:
             self.view.window().status_message("Not a ledger file")
