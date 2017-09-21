@@ -152,7 +152,7 @@ def format_entry(text):
             formatted.append(format_posting(line))
         else:
             formatted.append(line)
-    return "\n".join(formatted)
+    return "\n".join(formatted) + "\n"
 
 
 class LedgerBalanceCommand(sublime_plugin.TextCommand):
