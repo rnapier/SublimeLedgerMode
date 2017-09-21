@@ -1,29 +1,7 @@
 import sublime
 import sublime_plugin
-import subprocess
 import re
-
-
-class LedgerException(Exception):
-    pass
-
-
-def ledger(args, input=None):
-    extra_args = []
-    if input is not None:
-        extra_args.extend(["-f", "-"])
-
-    p = subprocess.Popen(["ledger"] + extra_args + args,
-                         stdin=subprocess.PIPE,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.PIPE,
-                         universal_newlines=True)
-    stdout, stderr = p.communicate(input)
-
-    if not p.returncode == 0:
-        raise LedgerException()
-
-    return stdout.strip()
+from . import ledger
 
 
 def set_ledger_output(edit, window, text):
@@ -164,14 +142,7 @@ class LedgerBalanceCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         if self.selected_index is None:
             text = self.view.substr(sublime.Region(0, self.view.size()))
-            accounts_output = ledger(['accounts', '^Assets:', '^Liabilities:'],
-                                     input=text)
-
-            if not accounts_output:
-                accounts_output = ledger(['accounts'])
-
-            self.accounts = accounts_output.splitlines()
-
+            self.accounts = ledger.accounts(text=text)
             self.view.window().show_quick_panel(self.accounts,
                                                 self.input_account)
         else:
@@ -187,7 +158,7 @@ class LedgerBalanceCommand(sublime_plugin.TextCommand):
         self.view.run_command('ledger_balance')
 
     def show_balance(self, edit, account):
-        balance = ledger(['balance', account])
+        balance = ledger.balance(account)
         set_ledger_output(edit, self.view.window(), balance)
 
 
