@@ -1,0 +1,74 @@
+%YAML 1.2
+---
+# Based on "Ledger syntax highlighting" by moeffju
+# https://packagecontrol.io/packages/Ledger%20syntax%20highlighting
+
+name: Ledger
+file_extensions: [ldg, ledger, ldgr]
+scope: source.ledger
+
+
+contexts:
+  prototype:
+    - include: comments
+
+  main:
+    - match: (?=^\d{4}[/-]\d{2}[/-]\d{2})
+      push: transaction
+
+    - match: ^(#|\||\*).*$
+      scope: comment.line
+
+    - match: ^(!\w+)(.*)$
+      captures:
+        1: keyword.control
+        2: constant.other
+
+    - match: ^([YPNDCiobh]).*$
+      captures:
+        1: keyword.other
+        2: constant.other
+
+    - match: ^(~)\s(.*?)$
+      captures:
+        1: punctuation.section.period
+        2: constant.other.expression
+
+    - match: ^(=)\s(.*?)$
+      captures:
+        1: punctuation.section.automated
+        2: string.regexp.expression
+
+  comments:
+    - match: \s*(;.*)$
+      captures:
+        1: comment.line
+
+  transaction:
+    - meta_content_scope: entity.transaction
+
+    - match: ^(\d{4}[/-]\d{2}[/-]\d{2})([=]?)(\d{4}[/-]\d{2}[/-]\d{2})?\s+([^;]+)
+      captures:
+        1: string.other.date
+        2: punctuation.separator
+        3: string.other.edate
+        4: markup.italic.desc
+
+    - match: ^\s+(\w[\w:\s_-]+)\s\s+([-$£¥€¢\d.,_]+)\s*(=)\s*([-$£¥€¢\d.,_]+)
+      captures:
+        1: entity.name.account
+        2: constant.numeric.amount
+        3: punctuation.balance_assertion
+        4: constant.numeric.balance_assertion
+
+    - match: ^\s+([\w:\s_-]+)\s\s+(=)?\s*([-$£¥€¢\d.,_]+)
+      captures:
+        1: entity.name.account
+        2: punctuation.balance_assignment
+        3: constant.numeric.amount
+
+    - match: ^\s+([\w:\s_-]+)
+      scope: entity.name.account
+
+    - match: ^\s*$
+      pop: true

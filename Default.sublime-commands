@@ -1,10 +1,10 @@
 [
-    {
-    	"caption": "Ledger: Show Balance",
-        "command": "ledger_balance",
-    },
-    {
-    	"caption": "Ledger: Reformat Entry",
-    	"command": "ledger_reformat_entry"
-    }
+  {
+    "caption": "Ledger: Show Balance",
+    "command": "ledger_balance"
+  },
+  {
+    "caption": "Ledger: Reformat Entry",
+    "command": "ledger_reformat_entry"
+  },
 ]

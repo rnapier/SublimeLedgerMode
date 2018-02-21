@@ -130,3 +130,9 @@ class LedgerReformatEntry(sublime_plugin.TextCommand):
 
         else:
             self.view.window().status_message("Not a ledger file")
+
+
+class LedgerAutocomplete(sublime_plugin.EventListener):
+    def on_query_completions(self, view, prefix, locations):
+        print("LedgerAutocomplete")
+        return ["XXX"]
