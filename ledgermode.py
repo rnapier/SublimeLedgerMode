@@ -1,6 +1,12 @@
 import sublime
 import sublime_plugin
 from . import ledger
+from datetime import date
+
+today = date.today()
+last_used_year = today.year
+last_used_month = today.month
+last_used_day = today.day
 
 
 def set_ledger_output(edit, window, text):
@@ -15,11 +21,11 @@ def set_ledger_output(edit, window, text):
 
 
 def view_is_ledger(view):
-    return view.match_selector(0, 'source.ledger')
+    return view.match_selector(0, 'text.ledger')
 
 
 def previous_line(view, sr):
-    """sr should be a Regiion covering the entire hard line"""
+    """sr should be a Region covering the entire hard line"""
     if sr.begin() == 0:
         return None
     else:
@@ -41,7 +47,7 @@ def is_entry_separating_line(view, sr):
 
 def expand_to_entry(view, tp):
     sr = view.full_line(tp)
-    if is_entry_separating_line(view, tp):
+    if is_entry_separating_line(view, sr):
         return sublime.Region(tp, tp)
 
     first = sr.begin()
@@ -54,13 +60,13 @@ def expand_to_entry(view, tp):
             first = prev.begin()
 
     last = sr.end()
-    next = sr
+    next_location = sr
     while True:
-        next = next_line(view, next)
-        if next is None or is_entry_separating_line(view, next):
+        next_location = next_line(view, next_location)
+        if next_location is None or is_entry_separating_line(view, next_location):
             break
         else:
-            last = next.end()
+            last = next_location.end()
 
     return sublime.Region(first, last)
 
@@ -132,7 +138,43 @@ class LedgerReformatEntry(sublime_plugin.TextCommand):
             self.view.window().status_message("Not a ledger file")
 
 
-class LedgerAutocomplete(sublime_plugin.EventListener):
-    def on_query_completions(self, view, prefix, locations):
-        print("LedgerAutocomplete")
-        return ["XXX"]
+class LedgerNewEntry(sublime_plugin.TextCommand):
+    def run(self, edit):
+        if view_is_ledger(self.view):
+            s = self.view.sel()[-1]
+
+            entry_end = expand_to_entry(self.view, s.end())
+
+            pt = entry_end.end()
+
+            # if at the very end of the buffer with no newline
+            if pt == self.view.size() and not is_entry_separating_line(self.view, self.view.full_line(entry_end)):
+                pt += self.view.insert(edit, pt, "\n")
+            else:
+                # Remove this blank line
+                blank_line = self.view.line(pt)
+                self.view.erase(edit, blank_line)
+                pt = blank_line.begin()
+
+            pt += self.view.insert(edit, pt, "\n2018/")
+            self.view.insert(edit, pt, "\n")
+
+            self.view.sel().clear()
+            self.view.sel().add(sublime.Region(pt))
+            self.view.show(pt)
+
+
+# class LedgerAutocomplete(sublime_plugin.EventListener):
+    # def on_query_completions(self, view, prefix, locations):
+    #     point = locations[-1]
+    #     # print(prefix)
+    #     #
+    #     # # scope = view.scope_name(point)
+    #     #
+    #     line = view.full_line(point)
+    #     print("auto")
+    #     if ledger.is_entry_separator(view.substr(line)):
+    #         print("sep")
+    #         return [("new transaction", "\n{}/".format(last_used_year))]
+    #
+    #     return None

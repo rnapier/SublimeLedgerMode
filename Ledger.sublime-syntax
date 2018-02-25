@@ -5,15 +5,17 @@
 
 name: Ledger
 file_extensions: [ldg, ledger, ldgr]
-scope: source.ledger
+scope: text.ledger
 
+variables:
+  date: \d{4}[/-]\d{2}[/-]\d{2}
 
 contexts:
   prototype:
     - include: comments
 
   main:
-    - match: (?=^\d{4}[/-]\d{2}[/-]\d{2})
+    - match: (?={{date}})
       push: transaction
 
     - match: ^(#|\||\*).*$
@@ -40,35 +42,53 @@ contexts:
         2: string.regexp.expression
 
   comments:
-    - match: \s*(;.*)$
+    - match: \s*(;)(.*)$
       captures:
-        1: comment.line
+        1: punctuation.definition.comment comment.line
+        2: comment.line
 
   transaction:
-    - meta_content_scope: entity.transaction
+    - meta_scope: meta.transaction
 
-    - match: ^(\d{4}[/-]\d{2}[/-]\d{2})([=]?)(\d{4}[/-]\d{2}[/-]\d{2})?\s+([^;]+)
+    - match: ^({{date}})([=]?)(\d{4}[/-]\d{2}[/-]\d{2})?\s+([^;]+)
       captures:
         1: string.other.date
         2: punctuation.separator
         3: string.other.edate
         4: markup.italic.desc
 
-    - match: ^\s+(\w[\w:\s_-]+)\s\s+([-$£¥€¢\d.,_]+)\s*(=)\s*([-$£¥€¢\d.,_]+)
-      captures:
-        1: entity.name.account
-        2: constant.numeric.amount
-        3: punctuation.balance_assertion
-        4: constant.numeric.balance_assertion
+    - match: ^\s+
+      push: posting
 
-    - match: ^\s+([\w:\s_-]+)\s\s+(=)?\s*([-$£¥€¢\d.,_]+)
-      captures:
-        1: entity.name.account
-        2: punctuation.balance_assignment
-        3: constant.numeric.amount
-
-    - match: ^\s+([\w:\s_-]+)
-      scope: entity.name.account
+    - match: ^\S.*
+      scope: invalid.illegal
 
     - match: ^\s*$
+      pop: true
+
+  posting:
+    - meta_content_scope: entity.name.account
+
+    - match: (?=\s\s)
+      set: amount
+
+    - match: $
+      pop: true
+
+  amount:
+    - match: ([-$£¥€¢\d.,_]+)\s*(=)\s*([-$£¥€¢\d.,_]+)
+      captures:
+        1: constant.numeric.amount
+        2: punctuation.balance_assertion
+        3: constant.numeric.balance_assertion
+
+    - match: (=)\s*([-$£¥€¢\d.,_]+)
+      captures:
+        1: punctuation.balance_assignment
+        2: constant.numeric.balance_assignment
+
+    - match: '[-$£¥€¢\d.,_]+'
+      scope: constant.numeric.amount
+
+    - match: $
       pop: true

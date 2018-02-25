@@ -1,0 +1,51 @@
+| SYNTAX TEST "Ledger.sublime-syntax"
+2016/11/21 * Opening Balances
+| <- meta.transaction string.other.date
+|            ^^^^^^^^^^^^^^^^^ meta.transaction markup.italic.desc
+    Liabilities:Credit Cards:American Express   =$-3909.84
+| <- meta.transaction
+|   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.transaction entity.name.account
+|                                               ^ meta.transaction punctuation.balance_assignment
+|                                                ^^^^^^^^^ meta.transaction constant.numeric.balance_assignment
+    Equity:Opening Balances
+|   ^^^^^^^^^^^^^^^^^^^^^^^ meta.transaction entity.name.account
+
+2016/11/21 * Foodbank CENC
+| <- meta.transaction string.other.date
+    Expenses:Charity                            $100
+|   ^^^^^^^^^^^^^^^^ meta.transaction entity.name.account
+|                                               ^^^^ meta.transaction constant.numeric.amount
+    Liabilities:Credit Cards:American Express
+|   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.transaction entity.name.account
+
+2016/12/23 Balance
+| <- meta.transaction string.other.date
+|          ^^^^^^^ meta.transaction markup.italic.desc
+    Liabilities:Credit Cards:American Express      0=$-7139.34
+|   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.transaction entity.name.account
+|                                                  ^ meta.transaction constant.numeric.amount
+|                                                   ^ meta.transaction punctuation.balance_assertion
+|                                                    ^^^^^^^^^ meta.transaction constant.numeric.balance_assertion
+
+2017/06/21 * UNITED AIRLINES HOUSTON TX
+| <- meta.transaction string.other.date
+    ; Refund
+|   ^ meta.transaction punctuation.definition.comment comment.line
+|   ^^^^^^^^ meta.transaction comment.line
+    Expenses:Reimbursement:iOSConf-SG       -$304.00
+|   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.transaction entity.name.account
+    Liabilities:Credit Cards:American Express
+
+; 2017/06/30 * Balance Assertion
+| <- meta.transaction comment.line
+;     Liabilities:Credit Cards:American Express      0=-$18467.96
+
+2017/07/04 * VERIZON WIRELESS 800-922-0204 FL
+    Expenses:Consulting:Phone  (($48.60/5 + $108.02)/2)
+|   ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.transaction entity.name.account
+|                                ^^^^^^ meta.transaction constant.numeric.amount
+|                                       ^ meta.transaction constant.numeric.amount
+|                                            ^^^^^^ meta.transaction constant.numeric.amount
+|                                                    ^ meta.transaction constant.numeric.amount
+    Expenses:Phone
+    Liabilities:Credit Cards:American Express  -$331.74

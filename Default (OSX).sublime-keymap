@@ -2,6 +2,11 @@
     {
         "command": "ledger_balance", 
         "keys": ["ctrl+alt+b"],
-        "context": [{"key": "selector", "operator": "equal", "operand": "source.ledger"}]
+        "context": [{"key": "selector", "operator": "equal", "operand": "text.ledger"}]
+    },
+    {
+        "command": "ledger_new_entry",
+        "keys": ["ctrl+alt+n"],
+        "context": [{"key": "selector", "operator": "equal", "operand": "text.ledger"}]
     }
 ]

@@ -7,4 +7,8 @@
     "caption": "Ledger: Reformat Entry",
     "command": "ledger_reformat_entry"
   },
+  {
+    "caption": "Ledger: New Entry",
+    "command": "ledger_new_entry"
+  }
 ]
